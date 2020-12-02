@@ -1,31 +1,30 @@
 import React, { memo, useContext } from 'react';
+import { connect } from 'react-redux';
+import { addToDo, changeToDo } from '../../Redux/Reducer/toDoReducer';
 import { DataContext } from '../../Data/DataContext';
-import { ActionType } from '../../entities/action/Action';
+import { State } from '../../entities/state/State';
 import Header from './Header';
+import { PropsHeaderContainer } from '../../entities/propsInterface/PropsHeaderContainer';
 
-const ToDoListContainer: React.FC = () => {
-    const { state, changeState } = useContext(DataContext);
-
+const ToDoListContainer: React.FC<PropsHeaderContainer> = ({ newToDo }: PropsHeaderContainer) => {
     const onAddToDoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (!changeState) {
-            return;
-        }
-        changeState({ type: ActionType.Change, payload: event.target.value });
+        changeToDo(event.target.value);
     };
 
-    const addToDo = (event: React.FormEvent<HTMLFormElement>, toDoName: string | undefined) => {
-        if (!changeState) {
-            return;
-        }
+    const onAddToDo = (event: React.FormEvent<HTMLFormElement>, toDoName: string | undefined) => {
         event.preventDefault();
-        changeState({ type: ActionType.Add, payload: toDoName });
-        changeState({ type: ActionType.Change, payload: '' });
+        addToDo(toDoName);
+        changeToDo('');
     };
 
     return (
         <section className="toDoList__container">
-            <Header {...state} newToDo={state?.newToDo} onAddToDoChange={onAddToDoChange} addToDo={addToDo} />
+            <Header newToDo={newToDo} onAddToDoChange={onAddToDoChange} onAddToDo={onAddToDo} />
         </section>
     );
 };
-export default memo(ToDoListContainer);
+
+const mapStateToProps = (state: State) => ({
+    newToDo: state?.newToDo,
+});
+export default memo(connect(mapStateToProps, { addToDo, changeToDo })(ToDoListContainer));

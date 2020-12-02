@@ -2,13 +2,15 @@ import React, { memo, useReducer } from 'react';
 import './App.css';
 import { DataContext } from './Data/DataContext';
 import { initialState } from './Data/InitialState';
-import { Action, ActionType, ContextState } from './entities/action/Action';
+import { Action, ContextState } from './entities/action/Action';
 import { State } from './entities/state/State';
-import { toDoReducer } from './Reducer/toDoReducer';
+import { toDoReducer } from './Redux/Reducer/toDoReducer';
 import App from './components/App';
 import { ToDoListMemo } from './entities/propsInterface/PropsApp';
+import { connect } from 'react-redux';
+import { toggleFilterToDo } from './Redux/Reducer/toDoReducer';
 
-const AppContainer: React.FunctionComponent = () => {
+const AppContainer: React.FC<> = ({ toDoList, filterType }) => {
     const [state, changeState] = useReducer<React.Reducer<State, Action>>(toDoReducer, initialState);
 
     const contextState: ContextState = {
@@ -42,10 +44,7 @@ const AppContainer: React.FunctionComponent = () => {
     const { toDoItems, notCompletedCounter, completedCounter } = todoList;
 
     const onToggleFilter = (value: 'all' | 'done' | 'not_done') => {
-        if (!changeState) {
-            return;
-        }
-        changeState({ type: ActionType.ToggleFilter, payload: value });
+        toggleFilterToDo(value);
     };
 
     return (
@@ -62,4 +61,8 @@ const AppContainer: React.FunctionComponent = () => {
     );
 };
 
-export default memo(AppContainer);
+const mapStateToProps = (state: State) => ({
+    toDoList: state?.toDoList,
+    filterType: state?.filterType,
+});
+export default memo(connect(mapStateToProps, { toggleFilterToDo })(AppContainer));
