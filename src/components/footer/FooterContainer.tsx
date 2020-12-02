@@ -9,7 +9,7 @@ const ToDoListContainer: React.FC<PropsFooterContainer> = ({
     notCompletedCounter,
     completedCounter,
 }: PropsFooterContainer) => {
-    const { changeState } = useContext(DataContext);
+    const { state, changeState } = useContext(DataContext);
 
     const onClearAllCompleted = () => {
         if (!changeState) {
@@ -25,6 +25,7 @@ const ToDoListContainer: React.FC<PropsFooterContainer> = ({
                 completedCounter={completedCounter}
                 onToggleFilter={onToggleFilter}
                 onClearAllCompleted={onClearAllCompleted}
+                filterType={state?.filterType}
             />
         </section>
     );

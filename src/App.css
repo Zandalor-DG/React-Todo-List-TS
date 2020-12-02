@@ -322,7 +322,7 @@ body {
     border-color: rgba(175, 47, 47, 0.1);
 }
 
-.footer__filters li a.selected {
+.footer__filters li .footer__text--selected {
     border-color: rgba(175, 47, 47, 0.2);
 }
 

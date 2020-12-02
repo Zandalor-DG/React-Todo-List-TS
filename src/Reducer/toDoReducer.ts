@@ -37,10 +37,23 @@ export const toDoReducer: React.Reducer<State, Action> = (state, action): State 
             };
         }
         case ActionType.ToggleAll: {
-            if (!action.payload) {
-                return { ...state, toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = false))] };
-            }
-            return { ...state, toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = true))] };
+            return {
+                ...state,
+                toDoList: state.toDoList.map((a) => {
+                    if (!action.payload) {
+                        return {
+                            id: a.id,
+                            name: a.name,
+                            isDone: false,
+                        };
+                    }
+                    return {
+                        id: a.id,
+                        name: a.name,
+                        isDone: true,
+                    };
+                }),
+            };
         }
         case ActionType.ToggleFilter: {
             return { ...state, toDoList: [...state.toDoList], filterType: action.payload };

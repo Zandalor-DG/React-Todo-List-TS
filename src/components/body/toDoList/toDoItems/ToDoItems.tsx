@@ -10,9 +10,9 @@ const ToDoItem: React.FC<PropsToDoItem> = ({ id, toDoItem, isDone, removeToDo, t
                         <input
                             type="checkbox"
                             className="toDoList__toggle"
-                            onClick={() => toggleReadiness({ id: id, name: toDoItem, isDone: isDone })}
+                            onChange={() => toggleReadiness({ id: id, name: toDoItem, isDone: isDone })}
                             name={toDoItem}
-                            defaultChecked={isDone}
+                            checked={isDone}
                         />
                         <label className="toDoList__text">{toDoItem}</label>
                         <button
