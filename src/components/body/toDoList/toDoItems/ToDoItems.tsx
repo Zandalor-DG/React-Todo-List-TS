@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { PropsToDoItem } from '../../../../entities/propsInterface/PropsToDoItem';
 
-const ToDoItem: React.FC<PropsToDoItem> = ({ id, toDoItem, isDone, removeToDo, toggleReadiness }: PropsToDoItem) => {
+const ToDoItem: React.FC<PropsToDoItem> = ({ id, toDoItem, isDone, onRemoveToDo, toggleReadiness }: PropsToDoItem) => {
     return (
         <div>
             <ul className="toDoList__list">
@@ -17,7 +17,7 @@ const ToDoItem: React.FC<PropsToDoItem> = ({ id, toDoItem, isDone, removeToDo, t
                         <label className="toDoList__text">{toDoItem}</label>
                         <button
                             className="toDoList__destroy"
-                            onClick={() => removeToDo({ id: id, name: toDoItem, isDone: isDone })}
+                            onClick={() => onRemoveToDo({ id: id, name: toDoItem, isDone: isDone })}
                         ></button>
                     </div>
                 </li>

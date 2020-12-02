@@ -1,5 +1,4 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { initialState } from '../../Data/InitialState';
 import { Action, ActionType } from '../../entities/action/Action';
 import { State } from '../../entities/state/State';
@@ -53,7 +52,7 @@ export const toDoReducer: React.Reducer<State, Action> = (state = initialState, 
         }
 
         default:
-            throw new Error('Unexpected action');
+            return { ...state, toDoList: [...state.toDoList] };
     }
 };
 

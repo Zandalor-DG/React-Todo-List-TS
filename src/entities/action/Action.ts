@@ -12,8 +12,6 @@ export enum ActionType {
     ToggleAll = 'ToggleAllReadiness',
 }
 
-const USER_LOGIN = 'USER_LOGIN';
-
 type ActionStringPayload = {
     type: ActionType.Add | ActionType.Change;
     payload: string | undefined;

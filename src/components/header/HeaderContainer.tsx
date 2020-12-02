@@ -1,12 +1,11 @@
-import React, { memo, useContext } from 'react';
+import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { addToDo, changeToDo } from '../../Redux/Reducer/toDoReducer';
-import { DataContext } from '../../Data/DataContext';
 import { State } from '../../entities/state/State';
 import Header from './Header';
 import { PropsHeaderContainer } from '../../entities/propsInterface/PropsHeaderContainer';
 
-const ToDoListContainer: React.FC<PropsHeaderContainer> = ({ newToDo }: PropsHeaderContainer) => {
+const HeaderContainer: React.FC<PropsHeaderContainer> = ({ newToDo }: PropsHeaderContainer) => {
     const onAddToDoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         changeToDo(event.target.value);
     };
@@ -27,4 +26,4 @@ const ToDoListContainer: React.FC<PropsHeaderContainer> = ({ newToDo }: PropsHea
 const mapStateToProps = (state: State) => ({
     newToDo: state?.newToDo,
 });
-export default memo(connect(mapStateToProps, { addToDo, changeToDo })(ToDoListContainer));
+export default memo(connect(mapStateToProps, { addToDo, changeToDo })(HeaderContainer));

@@ -1,21 +1,19 @@
-import React, { memo, useContext } from 'react';
-import { DataContext } from '../../Data/DataContext';
-import { ActionType } from '../../entities/action/Action';
+import React, { memo } from 'react';
+import { connect } from 'react-redux';
 import { PropsFooterContainer } from '../../entities/propsInterface/PropsFooterContainer';
+import { State } from '../../entities/state/State';
+import { clearAllCompletedToDo } from '../../Redux/Reducer/toDoReducer';
 import Footer from './Footer';
 
-const ToDoListContainer: React.FC<PropsFooterContainer> = ({
+const FooterContainer: React.FC<PropsFooterContainer> = ({
     onToggleFilter,
     notCompletedCounter,
     completedCounter,
+    filterType,
+    clearAllCompletedToDo,
 }: PropsFooterContainer) => {
-    const { changeState } = useContext(DataContext);
-
     const onClearAllCompleted = () => {
-        if (!changeState) {
-            return;
-        }
-        changeState({ type: ActionType.ClearAllCompleted });
+        clearAllCompletedToDo();
     };
 
     return (
@@ -25,8 +23,13 @@ const ToDoListContainer: React.FC<PropsFooterContainer> = ({
                 completedCounter={completedCounter}
                 onToggleFilter={onToggleFilter}
                 onClearAllCompleted={onClearAllCompleted}
+                filterType={filterType}
             />
         </section>
     );
 };
-export default memo(ToDoListContainer);
+
+const mapStateToProps = (state: State) => ({
+    filterType: state?.filterType,
+});
+export default memo(connect(mapStateToProps, { clearAllCompletedToDo })(FooterContainer));

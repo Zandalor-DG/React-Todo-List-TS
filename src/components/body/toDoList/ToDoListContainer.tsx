@@ -1,39 +1,29 @@
-import React, { memo, useContext } from 'react';
-import { DataContext } from '../../../Data/DataContext';
-import { ActionType } from '../../../entities/action/Action';
+import React, { memo } from 'react';
 import { ToDoItem } from '../../../entities/state/ToDoItem';
 import ToDoList from './ToDoList';
 import ToDoItems from './toDoItems/ToDoItems';
 import { PropsToDoListContainer } from '../../../entities/propsInterface/PropsToDoListContainer';
+import { State } from '../../../entities/state/State';
+import { connect } from 'react-redux';
+import { removeToDo, toggleToDo, toggleAllToDo } from '../../../Redux/Reducer/toDoReducer';
 
 const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
     toDoItems,
     notCompletedCounter,
+    removeToDo,
+    toggleToDo,
+    toggleAllToDo,
 }: PropsToDoListContainer) => {
-    const { state, changeState } = useContext(DataContext);
-
-    const removeToDo = (toDoForRemove: ToDoItem) => {
-        if (!changeState) {
-            return;
-        }
-
-        changeState({ type: ActionType.Remove, payload: toDoForRemove });
+    const onRemoveToDo = (toDoForRemove: ToDoItem) => {
+        removeToDo(toDoForRemove);
     };
 
     const toggleReadiness = (toDoForChange: ToDoItem) => {
-        if (!changeState) {
-            return;
-        }
-
-        changeState({ type: ActionType.Toggle, payload: toDoForChange });
+        toggleToDo(toDoForChange);
     };
 
     const toggleAllReadiness = () => {
-        if (!changeState) {
-            return;
-        }
-
-        changeState({ type: ActionType.ToggleAll, payload: notCompletedCounter });
+        toggleAllToDo(notCompletedCounter);
     };
 
     const toDoItemComponent = toDoItems?.map((toDoItem) => (
@@ -42,15 +32,19 @@ const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
             id={toDoItem.id}
             toDoItem={toDoItem.name}
             isDone={toDoItem.isDone}
-            removeToDo={removeToDo}
+            onRemoveToDo={onRemoveToDo}
             toggleReadiness={toggleReadiness}
         />
     ));
 
     return (
         <section className="toDoList__container">
-            <ToDoList {...state} toDoItemComponent={toDoItemComponent} toggleAllReadiness={toggleAllReadiness} />
+            <ToDoList toDoItemComponent={toDoItemComponent} toggleAllReadiness={toggleAllReadiness} />
         </section>
     );
 };
-export default memo(ToDoListContainer);
+
+const mapStateToProps = (state: State) => ({
+    state: state,
+});
+export default memo(connect(mapStateToProps, { removeToDo, toggleToDo, toggleAllToDo })(ToDoListContainer));
