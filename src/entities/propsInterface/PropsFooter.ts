@@ -1,8 +1,6 @@
 export interface PropsFooter {
     completedCounter: number | undefined;
-    allToDoCounter: number | undefined;
-    onCompleted: () => void;
-    onAll: () => void;
-    onActive: () => void;
+    notCompletedCounter: number | undefined;
     onClearAllCompleted: () => void;
+    onToggleFilter: (value: 'all' | 'done' | 'not_done') => void;
 }

@@ -37,30 +37,16 @@ export const toDoReducer: React.Reducer<State, Action> = (state, action): State 
             };
         }
         case ActionType.ToggleAll: {
-            if (state.toggle) {
-                return {
-                    ...state,
-                    toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = false))],
-                    toggle: !state.toggle,
-                };
+            if (!action.payload) {
+                return { ...state, toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = false))] };
             }
-            return {
-                ...state,
-                toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = true))],
-                toggle: !state.toggle,
-            };
+            return { ...state, toDoList: [...state.toDoList.filter((toDo) => (toDo.isDone = true))] };
         }
-        case ActionType.All: {
-            return { ...state, toDoList: [...state.toDoList] };
-        }
-        case ActionType.Active: {
-            return { ...state, toDoList: [...state.toDoList.filter((toDo) => toDo.isDone === false)] };
-        }
-        case ActionType.Completed: {
-            return { ...state, toDoList: [...state.toDoList.filter((toDo) => toDo.isDone === true)] };
+        case ActionType.ToggleFilter: {
+            return { ...state, toDoList: [...state.toDoList], filterType: action.payload };
         }
         case ActionType.ClearAllCompleted: {
-            return { ...state, toDoList: [...state.toDoList.filter((toDo) => toDo.isDone !== true)] };
+            return { ...state, toDoList: [...state.toDoList.filter((toDo) => !toDo.isDone)] };
         }
         default:
             throw new Error('Unexpected action');

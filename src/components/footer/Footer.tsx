@@ -2,31 +2,29 @@ import React, { memo } from 'react';
 import { PropsFooter } from '../../entities/propsInterface/PropsFooter';
 
 const Footer: React.FC<PropsFooter> = ({
-    allToDoCounter,
-    onAll,
-    onActive,
-    onCompleted,
+    onToggleFilter,
+    notCompletedCounter = 0,
+    completedCounter = 0,
     onClearAllCompleted,
-    completedCounter,
 }: PropsFooter) => {
-    if (allToDoCounter === 0) {
+    if (completedCounter + notCompletedCounter === 0) {
         return null;
     }
     return (
         <section className="footer hidden">
             <span className="footer__todo-count">
-                <strong>{allToDoCounter} </strong>
+                <strong>{notCompletedCounter} </strong>
                 item left
             </span>
             <ul className="footer__filters">
                 <li className="footer__text">
-                    <a onClick={onAll}>all</a>
+                    <a onClick={() => onToggleFilter('all')}>all</a>
                 </li>
                 <li className="footer__text">
-                    <a onClick={onActive}>active</a>
+                    <a onClick={() => onToggleFilter('not_done')}>active</a>
                 </li>
                 <li className="footer__text">
-                    <a onClick={onCompleted}>completed</a>
+                    <a onClick={() => onToggleFilter('done')}>completed</a>
                 </li>
             </ul>
             <button className="footer__clear-completed" onClick={onClearAllCompleted}>

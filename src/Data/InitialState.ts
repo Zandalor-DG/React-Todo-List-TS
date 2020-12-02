@@ -1,7 +1,7 @@
 import { State } from '../entities/state/State';
 
 export const initialState: State = {
-    toDoList: [{ id: 'it is first', name: 'first todo', isDone: false }],
-    toggle: false,
+    filterType: 'all',
+    toDoList: [{ id: '1', name: 'first todo', isDone: false }],
     newToDo: '',
 };

@@ -4,11 +4,13 @@ import { ActionType } from '../../../entities/action/Action';
 import { ToDoItem } from '../../../entities/state/ToDoItem';
 import ToDoList from './ToDoList';
 import ToDoItems from './toDoItems/ToDoItems';
+import { PropsToDoListContainer } from '../../../entities/propsInterface/PropsToDoListContainer';
 
-const ToDoListContainer: React.FC = () => {
+const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
+    toDoItems,
+    notCompletedCounter,
+}: PropsToDoListContainer) => {
     const { state, changeState } = useContext(DataContext);
-
-    const toDoListItems = state?.toDoList;
 
     const removeToDo = (toDoForRemove: ToDoItem) => {
         if (!changeState) {
@@ -31,12 +33,12 @@ const ToDoListContainer: React.FC = () => {
             return;
         }
 
-        changeState({ type: ActionType.ToggleAll });
+        changeState({ type: ActionType.ToggleAll, payload: notCompletedCounter });
     };
 
-    const toDoItemComponent = toDoListItems?.map((toDoItem, i) => (
+    const toDoItemComponent = toDoItems?.map((toDoItem) => (
         <ToDoItems
-            key={i}
+            key={toDoItem.id}
             id={toDoItem.id}
             toDoItem={toDoItem.name}
             isDone={toDoItem.isDone}

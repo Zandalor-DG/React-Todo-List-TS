@@ -7,9 +7,7 @@ export enum ActionType {
     Change = 'Change',
     Remove = 'Remove',
     Toggle = 'Toggle',
-    All = 'All',
-    Active = 'Active',
-    Completed = 'Completed',
+    ToggleFilter = 'ToggleFilter',
     ClearAllCompleted = 'ClearAllCompleted',
     ToggleAll = 'ToggleAllReadiness',
 }
@@ -19,21 +17,31 @@ type ActionStringPayload = {
     payload: string | undefined;
 };
 
+type ActionEnumPayLoad = {
+    type: ActionType.ToggleFilter;
+    payload: 'all' | 'done' | 'not_done';
+};
+
 type ActionObjectPayload = {
     type: ActionType.Toggle | ActionType.Remove;
     payload: ToDoItem;
 };
 
-type ActionVoidPayload = {
-    type:
-        | ActionType.Active
-        | ActionType.Completed
-        | ActionType.All
-        | ActionType.ClearAllCompleted
-        | ActionType.ToggleAll;
+type ActionNumberPayload = {
+    type: ActionType.ToggleAll;
+    payload: number;
 };
 
-export type Action = ActionStringPayload | ActionObjectPayload | ActionVoidPayload;
+type ActionVoidPayload = {
+    type: ActionType.ClearAllCompleted;
+};
+
+export type Action =
+    | ActionStringPayload
+    | ActionObjectPayload
+    | ActionVoidPayload
+    | ActionEnumPayLoad
+    | ActionNumberPayload;
 
 export type ContextState = {
     state: State;

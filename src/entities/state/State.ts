@@ -1,7 +1,7 @@
-import { ListToDoItems } from './ListToDoItems';
+import { ToDoItem } from './ToDoItem';
 
 export type State = {
-    toDoList: ListToDoItems;
-    toggle: boolean;
+    filterType: 'all' | 'done' | 'not_done';
+    toDoList: ToDoItem[];
     newToDo: string | undefined;
 };
