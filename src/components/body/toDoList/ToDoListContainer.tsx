@@ -3,9 +3,9 @@ import { ToDoItem } from '../../../entities/state/ToDoItem';
 import ToDoList from './ToDoList';
 import ToDoItems from './toDoItems/ToDoItems';
 import { PropsToDoListContainer } from '../../../entities/propsInterface/PropsToDoListContainer';
-import { State } from '../../../entities/state/State';
 import { connect } from 'react-redux';
-import { removeToDo, toggleToDo, toggleAllToDo } from '../../../Redux/Reducer/toDoReducer';
+import { removeToDo, toggleToDo, toggleAllToDo } from '../../../store/toDoReducer/actionCreatedToDo';
+import { StateReduxType } from '../../../store/reducers';
 
 const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
     toDoItems,
@@ -44,7 +44,7 @@ const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
     );
 };
 
-const mapStateToProps = (state: State) => ({
-    state: state,
+const mapStateToProps = (state: StateReduxType) => ({
+    state: state.toDo,
 });
 export default memo(connect(mapStateToProps, { removeToDo, toggleToDo, toggleAllToDo })(ToDoListContainer));

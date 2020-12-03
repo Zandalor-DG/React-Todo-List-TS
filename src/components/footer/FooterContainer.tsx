@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { PropsFooterContainer } from '../../entities/propsInterface/PropsFooterContainer';
-import { State } from '../../entities/state/State';
-import { clearAllCompletedToDo } from '../../Redux/Reducer/toDoReducer';
+import { StateReduxType } from '../../store/reducers';
+import { clearAllCompletedToDo } from '../../store/toDoReducer/actionCreatedToDo';
 import Footer from './Footer';
 
 const FooterContainer: React.FC<PropsFooterContainer> = ({
@@ -29,7 +29,7 @@ const FooterContainer: React.FC<PropsFooterContainer> = ({
     );
 };
 
-const mapStateToProps = (state: State) => ({
-    filterType: state?.filterType,
+const mapStateToProps = (state: StateReduxType) => ({
+    filterType: state.toDo.filterType,
 });
 export default memo(connect(mapStateToProps, { clearAllCompletedToDo })(FooterContainer));
