@@ -9,7 +9,7 @@ const ToggleAllToDoList: React.FC<PropsToggleAllToDoList> = ({ toggleAllReadines
                 type="checkbox"
                 className="toDoList__toggle-all"
                 id="toggle-all"
-                onClick={() => toggleAllReadiness()}
+                onChange={() => toggleAllReadiness()}
             />
             <label htmlFor="toggle-all">Mark all as complete</label>
         </div>
