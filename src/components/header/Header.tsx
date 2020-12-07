@@ -1,16 +1,31 @@
 import React, { memo } from 'react';
-import { PropsHeader } from '../../entities/propsInterface/PropsHeader';
 
-const Header: React.FunctionComponent<PropsHeader> = ({ newToDo, onAddToDoChange, onAddToDo }: PropsHeader) => {
+interface PropsHeader {
+    newToDo: string;
+    addToDo: (toDoName: string) => void;
+    changeToDo: (payload: string) => void;
+}
+
+const Header: React.FunctionComponent<PropsHeader> = ({ newToDo, changeToDo, addToDo }: PropsHeader) => {
+    const onAddToDoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        changeToDo(event.target.value);
+    };
+
+    const onAddItem = (e: React.FormEvent<HTMLFormElement>, newToDo: string) => {
+        e.preventDefault();
+        addToDo(newToDo);
+        changeToDo('');
+    };
+
     return (
         <header>
             <h1 className="header__title">todos</h1>
-            <form className="header__newTodo" onSubmit={(e) => onAddToDo(e, newToDo)}>
+            <form className="header__newTodo" onSubmit={(e) => onAddItem(e, newToDo)}>
                 <input
                     type="text"
                     className="header__input header__input-edit"
                     placeholder="What need to be done?"
-                    onChange={(e) => onAddToDoChange(e)}
+                    onChange={onAddToDoChange}
                     value={newToDo}
                 />
             </form>

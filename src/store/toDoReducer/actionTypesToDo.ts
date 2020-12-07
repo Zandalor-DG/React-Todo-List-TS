@@ -1,4 +1,5 @@
-import { ToDoItem } from '../../entities/state/ToDoItem';
+import { allDoneNotDone } from '../../models/allDoneNotDone';
+import { ToDo } from '../../models/ToDoItem';
 
 export enum ActionTypeToDo {
     Add = 'Add',
@@ -12,22 +13,22 @@ export enum ActionTypeToDo {
 
 export type ActionStringPayloadToDo = {
     type: ActionTypeToDo.Add | ActionTypeToDo.Change;
-    payload: string | undefined;
+    payload: string;
 };
 
 export type ActionEnumPayloadToDo = {
     type: ActionTypeToDo.ToggleFilter;
-    payload: 'all' | 'done' | 'not_done';
+    payload: allDoneNotDone;
 };
 
 export type ActionObjectPayloadToDo = {
     type: ActionTypeToDo.Toggle | ActionTypeToDo.Remove;
-    payload: ToDoItem | undefined;
+    payload: ToDo;
 };
 
 export type ActionNumberPayloadToDo = {
     type: ActionTypeToDo.ToggleAll;
-    payload: number | undefined;
+    payload: number;
 };
 
 export type ActionVoidPayloadToDo = {

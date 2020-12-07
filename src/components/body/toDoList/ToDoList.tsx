@@ -1,6 +1,10 @@
 import React, { memo } from 'react';
-import { PropsToDoList } from '../../../entities/propsInterface/PropsToDoList';
 import ToggleAllToDoList from './ToggleAllToDoList/ToggleAllToDoList';
+
+interface PropsToDoList {
+    toDoItemComponent: JSX.Element[];
+    toggleAllReadiness: () => void;
+}
 
 const ToDoList: React.FC<PropsToDoList> = ({ toDoItemComponent, toggleAllReadiness }: PropsToDoList) => {
     return (

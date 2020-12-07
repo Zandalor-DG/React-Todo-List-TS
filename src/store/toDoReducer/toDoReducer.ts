@@ -1,9 +1,8 @@
-import React from 'react';
 import { initialState } from '../../Data/InitialState';
 import { ActionToDo, ActionTypeToDo } from './actionTypesToDo';
-import { ToDoState } from '../../entities/state/ToDoState';
+import { ToDoState } from '../../models/ToDoState';
 
-const toDoReducer: React.Reducer<ToDoState, ActionToDo> = (state = initialState, action): ToDoState => {
+const toDoReducer = (state = initialState, action: ActionToDo): ToDoState => {
     switch (action.type) {
         case ActionTypeToDo.Add: {
             return {

@@ -1,4 +1,4 @@
-import { ToDoState } from '../entities/state/ToDoState';
+import { ToDoState } from '../models/ToDoState';
 
 export const initialState: ToDoState = {
     filterType: 'all',

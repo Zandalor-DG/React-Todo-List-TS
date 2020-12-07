@@ -1,8 +1,16 @@
 import React, { memo } from 'react';
-import { PropsApp } from '../entities/propsInterface/PropsApp';
+import { allDoneNotDone } from '../models/allDoneNotDone';
+import { ToDo } from '../models/ToDoItem';
 import ToDoListContainer from './body/toDoList/ToDoListContainer';
 import FooterContainer from './footer/FooterContainer';
 import HeaderContainer from './header/HeaderContainer';
+
+interface PropsApp {
+    toDoItems: ToDo[];
+    notCompletedCounter: number;
+    completedCounter: number;
+    onToggleFilter: (value: allDoneNotDone) => void;
+}
 
 const App: React.FunctionComponent<PropsApp> = ({
     toDoItems,

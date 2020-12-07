@@ -6,32 +6,33 @@ import {
     ActionEnumPayloadToDo,
     ActionVoidPayloadToDo,
 } from './actionTypesToDo';
-import { ToDoItem } from '../../entities/state/ToDoItem';
+import { allDoneNotDone } from '../../models/allDoneNotDone';
+import { ToDo } from '../../models/ToDoItem';
 
-export const addToDo = (payload: string | undefined): ActionStringPayloadToDo => ({
+export const addToDo = (payload: string): ActionStringPayloadToDo => ({
     type: ActionTypeToDo.Add,
     payload,
 });
 
-export const changeToDo = (payload: string | undefined): ActionStringPayloadToDo => ({
+export const changeToDo = (payload: string): ActionStringPayloadToDo => ({
     type: ActionTypeToDo.Change,
     payload,
 });
 
-export const removeToDo = (payload: ToDoItem | undefined): ActionObjectPayloadToDo => ({
+export const removeToDo = (payload: ToDo): ActionObjectPayloadToDo => ({
     type: ActionTypeToDo.Remove,
     payload,
 });
 
-export const toggleToDo = (payload: ToDoItem | undefined): ActionObjectPayloadToDo => ({
+export const toggleToDo = (payload: ToDo): ActionObjectPayloadToDo => ({
     type: ActionTypeToDo.Toggle,
     payload,
 });
-export const toggleAllToDo = (payload: number | undefined): ActionNumberPayloadToDo => ({
+export const toggleAllToDo = (payload: number): ActionNumberPayloadToDo => ({
     type: ActionTypeToDo.ToggleAll,
     payload,
 });
-export const toggleFilterToDo = (payload: 'all' | 'done' | 'not_done'): ActionEnumPayloadToDo => ({
+export const toggleFilterToDo = (payload: allDoneNotDone): ActionEnumPayloadToDo => ({
     type: ActionTypeToDo.ToggleFilter,
     payload,
 });

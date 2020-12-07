@@ -1,13 +1,21 @@
 import React, { memo } from 'react';
-import { PropsFooter } from '../../entities/propsInterface/PropsFooter';
 import classnames from 'classnames';
+import { allDoneNotDone } from '../../models/allDoneNotDone';
+
+interface PropsFooter {
+    completedCounter: number;
+    notCompletedCounter: number;
+    clearAllCompletedToDo: () => void;
+    onToggleFilter: (value: allDoneNotDone) => void;
+    filterType: allDoneNotDone;
+}
 
 const Footer: React.FC<PropsFooter> = ({
     onToggleFilter,
     notCompletedCounter = 0,
     completedCounter = 0,
-    onClearAllCompleted,
     filterType,
+    clearAllCompletedToDo,
 }: PropsFooter) => {
     const isAllActive = filterType === 'all';
     const isDoneActive = filterType === 'done';
@@ -48,7 +56,7 @@ const Footer: React.FC<PropsFooter> = ({
                     </a>
                 </li>
             </ul>
-            <button className="footer__clear-completed" onClick={onClearAllCompleted}>
+            <button className="footer__clear-completed" onClick={clearAllCompletedToDo}>
                 Clear completed[<span className="footer__completed-count">{completedCounter}</span>]
             </button>
         </section>

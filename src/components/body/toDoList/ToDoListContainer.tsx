@@ -1,11 +1,18 @@
 import React, { memo } from 'react';
-import { ToDoItem } from '../../../entities/state/ToDoItem';
 import ToDoList from './ToDoList';
 import ToDoItems from './toDoItems/ToDoItems';
-import { PropsToDoListContainer } from '../../../entities/propsInterface/PropsToDoListContainer';
 import { connect } from 'react-redux';
 import { removeToDo, toggleToDo, toggleAllToDo } from '../../../store/toDoReducer/actionCreatedToDo';
 import { StateReduxType } from '../../../store/reducers';
+import { ToDo } from '../../../models/ToDoItem';
+
+interface PropsToDoListContainer {
+    toDoItems: ToDo[];
+    notCompletedCounter: number;
+    removeToDo: (payload: ToDo) => void;
+    toggleToDo: (payload: ToDo) => void;
+    toggleAllToDo: (payload: number) => void;
+}
 
 const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
     toDoItems,
@@ -14,11 +21,11 @@ const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
     toggleToDo,
     toggleAllToDo,
 }: PropsToDoListContainer) => {
-    const onRemoveToDo = (toDoForRemove: ToDoItem) => {
+    const onRemoveToDo = (toDoForRemove: ToDo) => {
         removeToDo(toDoForRemove);
     };
 
-    const toggleReadiness = (toDoForChange: ToDoItem) => {
+    const toggleReadiness = (toDoForChange: ToDo) => {
         toggleToDo(toDoForChange);
     };
 
@@ -30,7 +37,7 @@ const ToDoListContainer: React.FC<PropsToDoListContainer> = ({
         <ToDoItems
             key={toDoItem.id}
             id={toDoItem.id}
-            toDoItem={toDoItem.name}
+            toDoName={toDoItem.name}
             isDone={toDoItem.isDone}
             onRemoveToDo={onRemoveToDo}
             toggleReadiness={toggleReadiness}

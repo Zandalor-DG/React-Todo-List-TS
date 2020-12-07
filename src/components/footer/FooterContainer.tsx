@@ -1,9 +1,17 @@
 import React, { memo } from 'react';
 import { connect } from 'react-redux';
-import { PropsFooterContainer } from '../../entities/propsInterface/PropsFooterContainer';
+import { allDoneNotDone } from '../../models/allDoneNotDone';
 import { StateReduxType } from '../../store/reducers';
 import { clearAllCompletedToDo } from '../../store/toDoReducer/actionCreatedToDo';
 import Footer from './Footer';
+
+interface PropsFooterContainer {
+    onToggleFilter: (value: allDoneNotDone) => void;
+    notCompletedCounter: number;
+    completedCounter: number;
+    filterType: allDoneNotDone;
+    clearAllCompletedToDo: () => void;
+}
 
 const FooterContainer: React.FC<PropsFooterContainer> = ({
     onToggleFilter,
@@ -12,17 +20,13 @@ const FooterContainer: React.FC<PropsFooterContainer> = ({
     filterType,
     clearAllCompletedToDo,
 }: PropsFooterContainer) => {
-    const onClearAllCompleted = () => {
-        clearAllCompletedToDo();
-    };
-
     return (
         <section className="toDoList__container">
             <Footer
                 notCompletedCounter={notCompletedCounter}
                 completedCounter={completedCounter}
                 onToggleFilter={onToggleFilter}
-                onClearAllCompleted={onClearAllCompleted}
+                clearAllCompletedToDo={clearAllCompletedToDo}
                 filterType={filterType}
             />
         </section>

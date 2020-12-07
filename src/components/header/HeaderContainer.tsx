@@ -2,23 +2,19 @@ import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { addToDo, changeToDo } from '../../store/toDoReducer/actionCreatedToDo';
 import Header from './Header';
-import { PropsHeaderContainer } from '../../entities/propsInterface/PropsHeaderContainer';
 import { StateReduxType } from '../../store/reducers';
+import { ActionStringPayloadToDo } from '../../store/toDoReducer/actionTypesToDo';
+
+interface PropsHeaderContainer {
+    newToDo: string;
+    addToDo: (payload: string) => ActionStringPayloadToDo;
+    changeToDo: (payload: string) => ActionStringPayloadToDo;
+}
 
 const HeaderContainer: React.FC<PropsHeaderContainer> = ({ newToDo, addToDo, changeToDo }: PropsHeaderContainer) => {
-    const onAddToDoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        changeToDo(event.target.value);
-    };
-
-    const onAddToDo = (event: React.FormEvent<HTMLFormElement>, toDoName: string | undefined) => {
-        event.preventDefault();
-        addToDo(toDoName);
-        changeToDo('');
-    };
-
     return (
         <section className="toDoList__container">
-            <Header newToDo={newToDo} onAddToDoChange={onAddToDoChange} onAddToDo={onAddToDo} />
+            <Header newToDo={newToDo} changeToDo={changeToDo} addToDo={addToDo} />
         </section>
     );
 };
